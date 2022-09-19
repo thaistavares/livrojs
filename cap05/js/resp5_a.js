@@ -6,17 +6,21 @@ const resp = document.querySelector("h3");
 frm.addEventListener("submit", (e) => {
     e.preventDefault();           // evita o envio do form
     
+    const fruta = frm.inFruta.value;   // obtém a fruta informada
     const numero = Number(frm.inNumero.value);   // obtém o número informado
-    let estrelas = "";    // variável que irá concatenar as estrelas/traços
+    let frutaEstrela = "";    // variável que irá concatenar a quantidade de fruta e estrela
 
     for (let i = 1; i <= numero; i++) {    // cria laço de repetição de 1 até numero
-        if (i % 2 == 1) {
-            estrelas = estrelas + "*";     // na posição ímpar do i: *
+        
+        if (i != numero) {
+            frutaEstrela = frutaEstrela + fruta + "*";
         } else {
-            estrelas = estrelas + "-";     // na posição par do i: -
+            frutaEstrela = frutaEstrela + fruta;
         }
+        
+
     }
 
-    resp. innerText = estrelas;    // exibe as estrelas
+    resp.innerText = frutaEstrela;    // exibe as estrelas
     
 });
