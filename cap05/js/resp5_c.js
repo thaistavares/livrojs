@@ -10,14 +10,18 @@ frm.addEventListener("submit", (e) => {
     const numero = Number(frm.inNumero.value);   // obtém o número informado
     let qtdDivisores = "";
     let divisor;
-    let soma;
+    let soma = 0;
 
     for (let i = 1; i < numero; i++) {    // cria laço de repetição de 1 até numero
         
         if (numero % i == 0) {
             divisor = i;
-            soma = divisor + i;
-            qtdDivisores = `${qtdDivisores}${divisor}, `; 
+            if (divisor != (numero/2)) {
+                qtdDivisores = `${qtdDivisores}${divisor}, `; 
+            } else {
+                qtdDivisores = `${qtdDivisores}${divisor}`; 
+            }
+            soma = soma + divisor;
         }
     }
 
@@ -25,9 +29,8 @@ frm.addEventListener("submit", (e) => {
 
     if (soma == numero) {
         resp2.innerText = `${numero} É um Número Perfeito`;
+    } else {
+        resp2.innerText = `${numero} Não É um Número Perfeito`;
     }
-    
-
-    
     
 });
