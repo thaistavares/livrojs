@@ -10,7 +10,7 @@ frm.addEventListener("submit", (e) => {
     
     const nome = frm.inClube.value;          // obtém os dados do form
     
-    clubes.push({nome});    // adiciona os dados ao vetor de objetos
+    clubes.push(nome);    // adiciona os dados ao vetor de objetos
     frm.reset();            // limpa os campos do form
     frm.inClube.focus();    // posiciona o cursor em inClube
     
@@ -27,9 +27,8 @@ frm.btListar.addEventListener("click", () => {    // "escuta" clique em btListar
     }
 
     let lista = "";    // para concatenar lista de crianças
-    for (const clube of clubes) {
-        const {nome} = clube;    // desestrutura o objeto
-        lista += nome + "\n";
+    for (let i = 0; i < clubes.length; i++) {
+        lista = `${lista}${clubes[i]}\n`;
     }
     
     resp.innerText = lista;    // exibe a lista
@@ -45,6 +44,16 @@ frm.btMontar.addEventListener("click", () => {    // "escuta" clique em btMontar
 
     if (clubes.length % 2 != 0) {
         alert("A quantidade de clubes precisa ser par")   
+    } else { 
+        let tabela = "";
+        let copia = [...clubes];
+   
+        for (let i = 0; i < (clubes.length / 2); i++) {
+            tabela = `${tabela}${copia.shift()} x ${copia.pop()}\n`;   
+        }
+
+    resp.innerText = tabela;
+
     }
     
 });
