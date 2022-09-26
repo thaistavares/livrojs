@@ -1,0 +1,18 @@
+<script>
+    // endereco.split(/\s+/);
+    const anuncio = prompt("Anúncio: ");    // lê o anúncio
+    let numPalavras = 0;                    // inicializa o contador
+    const tam = anuncio.length;             // obtém o tamanho
+    /* for (const letra of anuncio) {
+            if ( letra == " ") {
+                numPalavras++;
+            }            
+    }*/
+    for (let i = 0; i < tam; i++) {
+        if (anuncio.charAt(i)==" ") {        // se encontrou um espaço
+            numPalavras++;                  // incrementa o contador
+        }
+    }
+    // exibe o anúncio e o número de palavras (que é o nº de espaços + 1)
+    alert(`Anúncio: ${anuncio}\nNº de Palavras: ${(numPalavras+1)}`);
+</script>
