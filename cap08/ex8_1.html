@@ -1,0 +1,11 @@
+<script>
+    const situacao = (nota, media) => {
+        if (nota >= media) {
+            alert("Aprovado(a)");
+        } else {
+            alert("Reprovado(a)");
+        }
+    }
+    const prova1 = Number(prompt("Qual nota? "));
+    situacao(prova1, 7);    // chama a função situacao passando dois parâmetros
+</script>
