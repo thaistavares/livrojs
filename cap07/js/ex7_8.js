@@ -16,7 +16,7 @@ frm.addEventListener("submit", (e) => {
 
     const partes = dataVenc.split("-");    // data vem no formato aaaa-mm-dd
     vencto.setDate(Number(partes[2]));
-    vencto.setMonth(Number(partes[1]) + 1);
+    vencto.setMonth(Number(partes[1]) - 1);
     vencto.setFullYear(Number(partes[0]));
 
     const atraso = hoje - vencto;    // calcula a diferença de dias entre datas (em ms)
