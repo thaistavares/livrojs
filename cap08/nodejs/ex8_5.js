@@ -36,9 +36,38 @@ function pesquisar() {
 
     for (const vinho of vinhos) {
         if (vinho.tipo.toUpperCase().includes(pesq.toUpperCase())) {
-            
+            console.log(`${vinho.marca.padEnd(20)} ${vinho.tipo.padEnd(20)}` + 
+            `${vinho.preco.toFixed(2).padStart(9)}`);
+            contador++;    // se entrou no if, incrementa o contador       
         }
     }
+
+    // se percorreu todos os vinhos e o contador continua igual a zero, significa que não há
+    if (contador == 0) {
+        console.log(`Obs.: Não há vinhos cadastrados do tipo "${tipo}"`);
+    }
+}
+
+function calcularMedia() {
+    titulo("===< Média e Destaques do Cadastro de Vinhos >===");
+    const num = vinhos.length;    // obtém número de elementos do vetor
+    if (num == 0) {
+        console.log(`Obs.: Não há vinhos cadastrados`);
+        return;
+    }
+    let total = 0;    // para acumular o total
+    for (const vinho of vinhos) {
+        total += vinho.preco;
+    }
+    const media = total / num;      // calcula o preço médio
+    const vinhos2 = [...vinhos];    // cria uma cópia do vetor original
+    vinhos2.sort((a ,b) => a.preco - b.preco);    // ordena por preco
+    const menor = vinhos2[0];    // menor preço é o primeiro (posição 0)
+    const maior = vinhos2[num - 1];    // maior preço é o último (posição num - 1)
+
+    console.log(`Preço Médio dos Vinhos: R$${media.toFixed(2)}`);
+    console.log(`Menor Valor: R$${menor.preco.toFixed(2)} - ${menor.marca}`);
+    console.log(`Maior Valor: R$${maior.preco.toFixed(2)} - ${maior.marca}`);
 }
 
 // Programa Principal

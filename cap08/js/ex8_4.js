@@ -42,9 +42,9 @@ frm.addEventListener("submit", (e) => {
         produto = frm.inBebida.options[num].text;  // texto do item selecionado
     }
 
-    const detalhes = frm.inDetalhes.value;         // conteúdo do inDetalhes
+    const detalhes = frm.inDetalhes.value;          // conteúdo do inDetalhes
     itens.push(produto + " (" + detalhes + ")");    // adiciona ao vetor
-    resp.innerText = itens.join("\n");             // exibe os itens do pedido
+    resp.innerText = itens.join("\n");              // exibe os itens do pedido
 
     frm.reset();    // limpa o form
     frm.rbPizza.dispatchEvent(new Event("click"));  // dispara click em rbPizza
