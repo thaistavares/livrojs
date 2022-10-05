@@ -25,7 +25,7 @@ frm.addEventListener("submit", (e) => {
 // função recebe o ano do veículo como parâmetro
 const classificarVeiculo = (ano) => {
     const anoAtual = new Date().getFullYear();    // obtém o ano atual
-    let classif
+    let classif;
     if (ano == anoAtual) {    // condições para definir classificação do veículo
         classif = "Novo";
     } else if (ano == anoAtual - 1 || ano == anoAtual - 2) {

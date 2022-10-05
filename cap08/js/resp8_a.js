@@ -16,17 +16,31 @@ function retornarTracos(nome) {
     return linha;
 }
 
+const categorizarAlunos = (idade) => {
+    
+    let categoria;
+
+    if (idade <= 12) {
+        categoria = "Infantil";
+    } else if ((idade >= 13) && (idade <= 18)) {
+        categoria = "Juvenil"; 
+    } else if (idade > 18) {
+        categoria = "Adulto";
+    }
+
+    return categoria;
+
+}
+
 // cria um "ouvinte" de evento, acionado quando o botão submit for clicado
 frm.addEventListener("submit", (e) => {
     e.preventDefault();           // evita o envio do form
     
-    const nome = frm.inNome.value;              // obtém o nome do(a) aluno(a) informado pelo usuário
-    //const idade = Number(frm.inIdade.value);    // obtém a idade do(a) aluno(a) informada pelo usuário
+    const nome = frm.inNome.value;              // obtém o nome do(a) atleta informado pelo usuário
+    const idade = Number(frm.inIdade.value);    // obtém a idade do(a) atleta informada pelo usuário
+    const categoria = categorizarAlunos(idade);
 
     resp1.innerText = `${nome}\n${retornarTracos(nome)}`;
+    resp2.innerText = `Categoria: ${categoria}`;
 
 });
-
-/* const categorizarAlunos(idade) => {
-    
-} */
