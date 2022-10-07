@@ -18,7 +18,7 @@ const trocarClube = () => {
     dvTitulo.className = `row cores-${clube}`;
 
     // modifica a imagem de acordo com a seleção do cliente
-    imClube.src = `img/${clube.toLowerCase()}.png`
+    imClube.src = `img/${clube.toLowerCase()}.png`;
     imClube.className = "img-fluid";         // muda o estilo para exibir a imagem 
     imClube.alt = `Símbolo do ${clube}`;     // modifica o atributo alt
 
