@@ -1,18 +1,8 @@
 // cria referência ao form e elementos de resposta do programa
-const frm = document.querySelector("form");
+// const frm = document.querySelector("form");
 const imClube = document.querySelector("#imgClube");
 const dvTitulo = document.querySelector("#dvTitulo");
 const inRadios = document.querySelectorAll("input");
-
-// percorre os elementos para associar function ao evento change
-for (const inRadio of inRadios) {
-    inRadio.addEventListener("change", trocarClube);
-}
-
-// associa ao evento change de cada botão do form a função trocarClube
-// frm.rbBrasil.addEventListener("change", trocarClube);
-// frm.rbPelotas.addEventListener("change", trocarClube);
-// frm.rbFarroupilha.addEventListener("change", trocarClube);
 
 const trocarClube = () => {
     const clubes = ["Brasil", "Pelotas", "Farroupilha"];    // vetor com a lista de clubes
@@ -42,6 +32,16 @@ const trocarClube = () => {
 
 }
 
+// percorre os elementos para associar function ao evento change
+for (const inRadio of inRadios) {
+    inRadio.addEventListener("change", trocarClube);
+}
+
+// associa ao evento change de cada botão do form a função trocarClube
+// frm.rbBrasil.addEventListener("change", trocarClube);
+// frm.rbPelotas.addEventListener("change", trocarClube);
+// frm.rbFarroupilha.addEventListener("change", trocarClube);
+
 const verificarClube = () => {
     if (localStorage.getItem("clube")) {    // se já estiver salvo algum clube
         const clube = localStorage.getItem("clube");    // obtém o nome do clube
@@ -49,7 +49,7 @@ const verificarClube = () => {
             inRadios[0].checked = true;
         } else if (clube == "Pelotas") {
             inRadios[1].checked = true;
-        } else {
+       } else {
             inRadios[2].checked = true;
         }
         trocarClube();    // chama function que troca imagem e cores
