@@ -71,7 +71,7 @@ frm.addEventListener("submit", (e) => {
     };
 
     // chama a function quando a página é carregada para mostrar as apostas salvas
-    window.addEventListener("load", mostraApostas);
+    window.addEventListener("load", mostrarApostas);
 
 frm.btVencedor.addEventListener("click", () => {
     
