@@ -1,6 +1,6 @@
 // cria referência ao form e elementos de resposta do programa
 const frm = document.querySelector("form");
-const dvQuadro = document.querySelector("#dvQuadro");
+const dvQuadro = document.querySelector("#divQuadro");
 
 // cria um "ouvinte" de evento, acionado quando o botão submit for clicado
 frm.addEventListener("submit", (e) => {
@@ -69,4 +69,43 @@ frm.btRetirar.addEventListener("click", () => {
         dvQuadro.removeChild(tarefas[aux]);    // remove um dos filhos de divQuadro
     }
 
+});
+
+frm.btGravar.addEventListener("click", () => {
+    const tarefas = document.querySelectorAll("h5");    // obtém tags h5 da página
+
+    if (tarefas.length == 0) {
+        alert("Não há tarefas para serem salvas");    // se não houver tarefas, então exibe um alerta
+        return;    // retorna
+    }
+
+    let dados = "";    // irá "acumular" os dados a serem salvos
+    tarefas.forEach(tarefa => {
+        dados += tarefa.innerText + ";";    // acumula o conteúdo de cada h5
+    })
+
+    // grava os dados em localStorage, removendo o último ";"
+    localStorage.setItem("tarefasDia", dados.slice(0,-1));
+
+    // confere se os dados foram armazenados em localStorage
+    if (localStorage.getItem("tarefasDia")) {
+        alert("Ok! Tarefas Salvas")
+    }
+
+});
+
+window.addEventListener("load", () => {
+    // verifica se há tarefas salvas no navegador do usuário
+    if (localStorage.getItem("tarefasDia")) {
+        // cria um vetor com a lista de tarefas (separadas pelo split(";"))
+        const dados = localStorage.getItem("tarefasDia".split(";"));
+
+        // percorre os dados armazenados em localStorage
+        dados.forEach(dado => {
+            const h5 = document.createElement("h5");        // cria o elemento HTML h5
+            const texto = document.createTextNode(dado);    // cria um texto
+            h5.appendChild(texto);       // define que texto será filho de h5
+            dvQuadro.appendChild(h5);    // e que h5 será filho de divQuadro
+        });
+    }
 });
