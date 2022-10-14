@@ -58,25 +58,25 @@ window.addEventListener("load", () => {
         }
     }
 
-        const div = document.createElement("div");    // cria elemento div
-        const h3 = document.createElement("h3");      // cria elemento h3
+    const div = document.createElement("div");    // cria elemento div
+    const h3 = document.createElement("h3");      // cria elemento h3
 
-        let mensagem;
-        // verifica se o valor informado é igual ao total de moedas exibido
-        if (soma == totalMoedas.toFixed(2)) {
-            div.className = "alert alert-success";    // define a classe da div
-            mensagem = "Parabéns!! Você acertou!";    // e a mensagem a ser exibida
-        } else {
-            div.className = "alert alert-danger";
-            mensagem = `Ops... A resposta correta é ${totalMoedas.toFixed(2)}`;
-        }
+    let mensagem;
+    // verifica se o valor informado é igual ao total de moedas exibido
+    if (soma == totalMoedas.toFixed(2)) {
+        div.className = "alert alert-success";    // define a classe da div
+        mensagem = "Parabéns!! Você acertou!";    // e a mensagem a ser exibida
+    } else {
+        div.className = "alert alert-danger";
+        mensagem = `Ops... A resposta correta é ${totalMoedas.toFixed(2)}`;
+    }
 
-        const texto = document.createTextNode(mensagem);    // cria elemento de texto
-        h3.appendChild(texto);        // texto é filho de h3
-        div.appendChild(h3);          // h3 é filho da div criada na function
-        dvMoedas.appendChild(div);    // e a div com alerta é filha de divMoedas
+    const texto = document.createTextNode(mensagem);    // cria elemento de texto
+    h3.appendChild(texto);        // texto é filho de h3
+    div.appendChild(h3);          // h3 é filho da div criada na function
+    dvMoedas.appendChild(div);    // e a div com alerta é filha de divMoedas
 
-        frm.submit.disabled = true;   // desabilita botão (resposta já foi exibida)
+    frm.submit.disabled = true;   // desabilita botão (resposta já foi exibida)
 
  });
 
