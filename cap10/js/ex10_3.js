@@ -34,7 +34,7 @@ const gravarFilme = (titulo, genero) => {
     if (localStorage.getItem("filmesTitulo")) {
         // ... obtém os dados e acrescenta ";" e p título/gênero informado
         const filmesTitulo = localStorage.getItem("filmesTitulo") + ";" + titulo;
-        const fimlesGenero = localStorage.getItem("filmesGenero") + ";" + genero;
+        const filmesGenero = localStorage.getItem("filmesGenero") + ";" + genero;
         localStorage.setItem("filmesTitulo", filmesTitulo);    // grava dados
         localStorage.setItem("filmesGenero", filmesGenero);    // em localStorage
     } else {
@@ -64,7 +64,7 @@ tbFilmes.addEventListener("click", (e) => {
     if (e.target.classList.contains("exclui")) {
     // if (e.target.className.includes("exclui")) {...}
         // acessa o "pai do pai" do elemento alvo, e obtém o texto do primeiro filho
-        const titulo = e.target.parentElement.parent.Element.children[0].innetText;
+        const titulo = e.target.parentElement.parentElement.children[0].innerText;
 
         if (confirm(`Confirma Exclusão do Filme "${titulo}"?`)) {
             // remove a linha da tabela correspondente ao símbolo de excluir clicado
