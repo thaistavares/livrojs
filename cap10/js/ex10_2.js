@@ -29,7 +29,7 @@ window.addEventListener("load", () => {
         const novaMoeda = document.createElement("img");    // cria elemento img
         novaMoeda.src = "img/" + moeda;    // atributo src
         novaMoeda.textAlt = textoAlt;      // texto alternativo
-        novaMoeda.className = classe;      // classe da moeda(css)
+        novaMoeda.className = classe;      // classe da moeda (css)
         dvMoedas.appendChild(novaMoeda);   // hierarquia DOM
     }
 
