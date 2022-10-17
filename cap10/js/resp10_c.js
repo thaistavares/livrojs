@@ -27,7 +27,7 @@ const inserirLinha = (titulo, genero) => {
     col2.innerText = genero;
     col3.innerHTML = "<i class='exclui' title='Excluir'>&#10008</i>";
 
-};
+}
 
 const gravarFilme = (titulo, genero) => {
     // se houver dados salvos em localStorage

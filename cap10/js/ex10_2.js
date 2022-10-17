@@ -36,7 +36,7 @@ window.addEventListener("load", () => {
     const br = document.createElement("br");    // cria uma quebra de linha (br)
     dvMoedas.appendChild(br);
     
- }
+ };
 
  frm.addEventListener("submit", (e) => {
     e.preventDefault();    // evita o envio do form
