@@ -10,6 +10,7 @@ const inserirLinha = (clube1, clube2) => {
 
     col1.innerText = clube1;    // joga um conteúdo em cada cédula
     col2.innerText = clube2;
+    dvQuadro.appendChild(tbJogos);
 
 };
 
@@ -40,14 +41,22 @@ btMontar.addEventListener("click", (e) => {
         return;
     }
 
+    const cabecalho = "Tabela de Jogos";                 // conteúdo do cabeçalho
+
+    const h4 = document.createElement("h4");             // cria o elemento HTML h4
+    const texto = document.createTextNode(cabecalho);    // cria um texto
+    
+    h4.appendChild(texto);       // define que texto será filho de h4
+    dvQuadro.appendChild(h4);    // e que h4 será filho de divQuadro
+
     // percorre os elementos do vetor e os insere na tabela
-    for (let i = 0; i < listaH5.length; i++) {
-        inserirLinha(listaH5[i], listaH5[i]);
-    }
+    for (let i = 0; i < listaH5.length; i += 2) {
+        inserirLinha(listaH5[i].innerText, listaH5[i+1].innerText);
+    }    
 
 });
 
-btNovos.addEventListener("click", (e) => {
+btNovos.addEventListener("click", () => {
 
     window.location.reload();
 
