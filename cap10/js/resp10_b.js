@@ -2,7 +2,7 @@
 const frm = document.querySelector("form");
 const dvQuadro = document.querySelector("#divQuadro");
 
-function gerarCor() {
+const gerarCor = () => {
     const letras = "0123456789ABCDEF";
     let cor = "#";
     
@@ -28,7 +28,7 @@ frm.addEventListener("submit", (e) => {
     }
 
     // para retirar os h3 já existentes (se clicou uma segunda vez no botão) 
-    const listaH3 = document.querySelectorAll("h3")
+    const listaH3 = document.querySelectorAll("h3");
     for (let i = 0; i < listaH3.length; i++) {
         dvQuadro.removeChild(listaH3[i]);
     }
