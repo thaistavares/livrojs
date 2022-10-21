@@ -1,155 +1,111 @@
 // cria referência ao form e elementos de resposta do programa
 const frm = document.querySelector("form");
-const respLista = document.querySelector("pre");
-const respCavalo = document.querySelector("#outCavalo");
+const dvPalco = document.querySelector("#divPalco");
 
-// nome dos cavalos participantes do páreo
-const CAVALOS = ["Marujo", "Tordilho", "Belga", "Twister", "Jade", "Lucky"];
+const POLTRONAS = 240;    // constante com o número de poltronas do teatro
 
-// vetor que irá armazenar um objeto aposta (com nº. cavalo e valor da aposta)
-const apostas = [];
+const reservadas = [];    // vetor com as poltronas reservadas pelo cliente
 
-const obterCavalo = (num) => {
-    const posicao = num - 1;    // posição no vetor (subtrai 1, pois inicia em 0)
-    return CAVALOS[posicao];    // nome do cavalo (da const CAVALOS)
-};
+window.addEventListener("load", () => {
+    // operador ternário: se houver dados salvos em localStorage, faz um split(";") e
+    // atribui esses dados ao array, caso contrário, o array é inicializado vazio
+    const ocupadas = localStorage.getItem("teatroOcupadas")
+    ? localStorage.getItem("teatroOcupadas").split(";")
+    :[];
 
-const validarCavalo = (num) => {
-    // retorna o valor resultante da condição (true ou false)
-    return num >= 1 && num <= CAVALOS.length;
-};
+    // repetição para montar o nº total de poltronas (definida na constante)
+    for (let i = 1; i <= POLTRONAS; i++) {
+        const figure = document.createElement("figure");    // cria tag figure
+        const imgStatus = document.createElement("img");    // cria tag img
 
-const contarApostas = (num) => {
-    let contador = 0;
-    // percorre o vetor apostas
-    for (const aposta of apostas) {
-        // verifica se a aposta é no cavalo passado como parâmetro
-        if (aposta.cavalo == num) {
-            contador++;    // conta +1 quando a aposta for no cavalo de parâmetro
-        }
+        // se a posição consta em ocupadas, exibe a imagem ocupada, senão, disponível
+        imgStatus.src = ocupadas.includes(i.toString())
+        ? "img/ocupada.jpg"
+        : "img/disponivel.jpg";
+        imgStatus.className = "poltrona";    // classe com dimensão da img
+        const figureCap = document.createElement("figcaption");    // cria figcaption
+
+        // quantidade de zeros antes do número da poltrona
+        const zeros = i < 10 ? "00" : i < 100 ? "0" : "";
+
+        const num = document.createTextNode(`[${zeros}${i}]`);    // cria texto
+
+        figureCap.appendChild(num);    // define os pais de cada tag criada
+        figure.appendChild(imgStatus);
+        figure.appendChild(figureCap);
+
+        // se i módulo 24 == 12 (é o corredor: define margem direita 60 px)
+        if (i % 24 == 12) figure.style.marginRight = "60px";
+
+        dvPalco.appendChild(figure);    // indica que figure é filha de divPalco
+
+        // se i módulo 24 == 0: o comando após && será executado (insere quebra de linha)
+        (i % 24 == 0) && dvPalco.appendChild(document.createElement("br"));
+
     }
 
-    return contador;    // retorna o nº de apostas no cavalo numCavalo
-
-};
-
-const totalizarApostas = (num) => {
-    let total = 0;
-    for (const aposta of apostas) {
-        if (aposta.cavalo == num) {
-            total += aposta.valor;    // soma o valor das apostas
-        }
-    }
-
-    return total;    // retorna a soma dos valores apostados em numCavalo
-
-}
+});
 
 frm.addEventListener("submit", (e) => {
-
     e.preventDefault();    // evita o envio do form
 
-    const cavalo = Number(frm.inCavalo.value);    // obtém conteúdo dos campos    
-    const valor = Number(frm.inValor.value);
-    
-    // adiciona ao vetor de objetos (atributos cavalo e valor)
-    apostas.push({cavalo, valor});
-    // variável para exibir a lista das apostas realizadas
-    let lista = `Apostas Realizadas\n${"-".repeat(25)}\n`;
-    
-    // percorre o vetor e concatena em lista as apostas realizadas
-    for (const aposta of apostas) {
-        lista += `Nº ${aposta.cavalo} ${obterCavalo(aposta.cavalo)}`;
-        lista += `- R$${aposta.valor.toFixed(2)}\n`;
-    }
+    const poltrona = Number(frm.inPoltrona.value);    // obtém conteúdo de inPoltrona
 
-    respLista.innerText = lista;    // exibe a lista das apostas
-
-    frm.reset();
-    frm.inCavalo.focus();    // posiciona o cursor em inCavalo
-
-});
-
-frm.inCavalo.addEventListener("blur", () => {
-    // se não preencheu o campo, limpa respCavalo e retorna
-    // (não exibe mensagem de alerta, pois pode sair por um clique em Ganhador)
-    if (frm.inCavalo.value == "") {
-        respCavalo.innerText = "";
+    // valida o preenchimento do campo de entrada... não pode ser maior que a const
+    if (poltrona > POLTRONAS) {
+        alert("Informe um número de poltrona válido");
+        frm.inPoltrona.focus();
         return;
     }
 
-    const numCavalo = Number(frm.inCavalo.value);    // nº do cavalo convertido em Number
-    if (!validarCavalo(numCavalo)) {
-        alert("Nº do cavalo inválido");
-        frm.inCavalo.focus();
+    const ocupadas = localStorage.getItem("teatroOcupadas")
+    ? localStorage.getItem("teatroOcupadas").split(";")
+    :[];
+
+    // se a poltrona escolhida já estiver ocupada (existe em localStorage)
+    if (ocupadas.includes(poltrona.toString())) {
+        alert(`Poltrona ${poltrona} já está ocupada...`);
+        frm.inPoltrona.value = "";
+        frm.inPoltrona.focus();
         return;
     }
 
-    const nome = obterCavalo(numCavalo);    // atribui retorno das funções às variáveis
-    const contaNum = contarApostas(numCavalo);
-    const total = totalizarApostas(numCavalo);
+    // captura imagem da poltrona, filha de divPalco. É -1 pois começa em 0
+    const imgPoltrona = dvPalco.querySelectorAll("img")[poltrona - 1];
 
-    // exibe nome, nº de apostas e total apostado no cavalo
-    respCavalo.innerText = `${nome} (Aposta: ${contaNum} - R$${total.toFixed(2)})`;
-    
-});
+    imgPoltrona.src = "img/reservada.jpg";    // adiciona a poltrona ao vetor reservadas
 
-// quando o campo recebe o foco, limpa o conteúdo e dados do cavalo
-frm.inCavalo.addEventListener("focus", () => {
-    frm.inCavalo.value = "";
-    respCavalo.innerHTML = "";
-});
+    reservadas.push(poltrona);    // adiciona poltrona ao vetor reservadas
 
-frm.btResumo.addEventListener("click", () => {
-    // vetor com valores zerados para cada cavalo
-    const somaApostas = [0, 0, 0, 0, 0, 0];
-
-    // percorre apostas e acumula na posição do cavalo apostado (-1, pois inicia em 0)
-    for (const aposta of apostas) {
-        somaApostas[aposta.cavalo - 1] += aposta.valor;
-    }
-
-    // exibe o resultado
-    let resposta = `Nº Cavalo.............. R$ Apostado\n${"-".repeat(35)}\n`;
-    
-    CAVALOS.forEach((cavalo, i) => {
-        resposta += `${i + 1} ${cavalo.padEnd(20)}`;
-        resposta += `${somaApostas[i].toFixed(2).padStart(11)}\n`;
-    });
-
-    respLista.innerText = resposta;
+    frm.inPoltrona.value = "";    // limpa campo
+    frm.inPoltrona.focus();       // joga o foco em inPoltrona
 
 });
 
-frm.btGanhador.addEventListener("click", () => {
-    // solicita o número do cavalo ganhador (já converte para número)
-    const ganhador = Number(prompt("Nº Cavalo Ganhador: "));
-
-    // para validar o preenchimento do prompt anterior
-    if (isNaN(ganhador) || !validarCavalo(ganhador)) {
-        alert("Cavalo Inválido");
+frm.btConfirmar.addEventListener("click", () => {
+    if (reservadas.length == 0) {
+        alert("Não há poltronas reservadas");
+        frm.inPoltrona.focus();
         return;
     }
 
-    // uso do método reduce para somar o valor das apostas
-    const total = apostas.reduce((acumulador, aposta) => acumulador + aposta.valor, 0);
+    const ocupadas = localStorage.getItem("teatroOcupadas")
+    ? localStorage.getItem("teatroOcupadas").split(";")
+    :[];
 
-    // concatena em resumo o resultado a ser exibido na página
-    let resumo = `Resultado Final do Páreo\n${"-".repeat(30)}\n`;
+    // for decrescente, pois as reservas vão sendo removidas a cada alteração da imagem
+    for (let i = reservadas.length - 1; i >= 0; i--) {
+        ocupadas.push(reservadas[i]);
 
-    resumo += `Nº Total de Apostas: ${apostas.length}\n`;
-    resumo += `Total Geral: R$${total.toFixed(2)}\n\n`;
-    resumo += `Ganhador Nº ${ganhador} - ${obterCavalo(ganhador)}\n\n`;
-    resumo += `Nº de Apostas: ${contarApostas(ganhador)}\n`;
-    resumo += `Total Apostado: R$${totalizarApostas(ganhador).toFixed(2)}`;
+        // captura a imagem da poltrona, filha de divPalco. É -1 pois começa em 0
+        const imgPoltrona = dvPalco.querySelectorAll("img")[reservadas[i] - 1];
 
-    respLista.innerText = resumo;    // exibe o resultado
+        imgPoltrona.src = "img/ocupada.jpg";    // modifica atributo da imagem
 
-    frm.btApostar.disabled = true;    // desabilita os botões apostar e ganhador
-    frm.btGanhador.disabled = true;
-    frm.btNovo.focus();    // joga o foco no botão "Novo Páreo"
+        reservadas.pop();    // remove do vetor a reserva já alterada
+
+    }
+
+    localStorage.setItem("teatroOcupadas", ocupadas.join(";"));
 
 });
-
-// recarrega a página (para funções com apenas 1 linha, não é necessário {})
-frm.btNovo.addEventListener("click", () => window.location.reload());
