@@ -17,7 +17,7 @@ frm.addEventListener("submit", (e) => {
 
     // se já existem dados em localStorage, grava o conteúdo anterior+";"+palavra/dica
     if (localStorage.getItem("jogoPalavra")) {
-        localStorage.setItem("jogoPalavra", localStorage.setItem("jogoPalavra") + ";" + palavra);
+        localStorage.setItem("jogoPalavra", localStorage.getItem("jogoPalavra") + ";" + palavra);
         localStorage.setItem("jogoDica", localStorage.getItem("jogoDica") + ";" + dica);
     } else {
         // senão, é a primeira inclusão: grava apenas a palavra/dica
